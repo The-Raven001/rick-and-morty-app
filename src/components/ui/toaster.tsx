@@ -1,6 +1,8 @@
 "use client"
 
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@/../hooks/use-toast"
+import 'tailwindcss/tailwind.css';
+
 import {
   Toast,
   ToastClose,
