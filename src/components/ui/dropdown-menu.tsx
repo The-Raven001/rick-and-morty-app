@@ -9,6 +9,7 @@ import {
 } from "@radix-ui/react-icons"
 
 import { cn } from "@/lib/utils"
+import 'tailwindcss/tailwind.css';
 
 const DropdownMenu = DropdownMenuPrimitive.Root
 
