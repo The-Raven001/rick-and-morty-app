@@ -13,11 +13,6 @@ const Sidebar: React.FC = () => {
           </Link>
         </li>
         <li>
-
-            <p className="block py-2 px-4 rounded-xl hover:bg-gray-700 text-gray-300">Create Character</p>
-
-        </li>
-        <li>
           <Link href="/episodes/list">
             <p className="block py-2 px-4 rounded-xl hover:bg-gray-700 transition-colors">
               Episodes
