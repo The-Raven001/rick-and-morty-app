@@ -1,7 +1,6 @@
 import { AppProps } from 'next/app';
-import { Toaster } from "src/components/ui/toaster"; // Adjust the import path
-import "../styles/globals.css"; // Tailwind or global CSS
-import Sidebar from "src/components/Sidebar";
+import { Toaster } from "src/components/ui/toaster"; 
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

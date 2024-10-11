@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { useToast} from "@/../hooks/use-toast"
-import {Toaster} from "src/components/ui/toaster"
 
 interface EpisodeModalProps {
   isOpen: boolean;
@@ -37,8 +36,7 @@ export const EpisodeModal: React.FC<EpisodeModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Check if initialData is defined
-    if (!initialData) return; // Prevent errors if there's no initial data
+    if (!initialData) return; 
 
     onSave({ id: initialData.id, name, air_date: airDate, episode });
 

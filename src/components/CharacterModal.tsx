@@ -14,7 +14,7 @@ interface CharacterModalProps {
     species: string;
     type: string;
     gender: string;
-  } | null;
+  } | null | undefined;
 }
 
 export const CharacterModal = ({ isOpen, onClose, onSave, initialData }: CharacterModalProps) => {
@@ -42,7 +42,7 @@ export const CharacterModal = ({ isOpen, onClose, onSave, initialData }: Charact
     e.preventDefault();
     onSave({ id: initialData?.id!, name, status, species, type, gender });
 
-    // Display toast based on whether this is an update or new creation
+
     toast({
       title: initialData ? "Character updated successfully!" : "New character created!",
       description: `The character "${name}" has been ${initialData ? "updated" : "created"}.`,
@@ -55,8 +55,7 @@ export const CharacterModal = ({ isOpen, onClose, onSave, initialData }: Charact
   if (!isOpen) return null;
 
   return (
-    <>
-      {/* Modal code */}
+    <div>
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
         <div className="bg-gray-800 p-6 rounded-lg shadow-md">
           <h2 className="text-xl font-bold text-gray-100 mb-4">{initialData ? "Edit Character" : "Add Character"}</h2>
@@ -121,8 +120,7 @@ export const CharacterModal = ({ isOpen, onClose, onSave, initialData }: Charact
           </form>
         </div>
       </div>
-      {/* Toaster component */}
       <Toaster /> 
-    </>
+    </div>
   );
 };
