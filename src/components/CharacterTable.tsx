@@ -5,7 +5,6 @@ import { CharacterModal } from "@/components/CharacterModal";
 import { Button } from "@/components/ui/button";
 import 'tailwindcss/tailwind.css';
 import { useToast } from "hooks/use-toast";
-import { Toaster } from "src/components/ui/toaster";
 
 interface Character {
   id: number;
