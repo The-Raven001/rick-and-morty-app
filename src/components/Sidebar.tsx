@@ -3,7 +3,7 @@ import 'tailwindcss/tailwind.css';
 
 const Sidebar: React.FC = () => {
   return (
-    <div className="w-64 h-screen bg-gray-900 text-gray-100 p-4">
+    <div className="w-64 bg-gray-900 text-gray-100 p-4">
       <ul className="space-y-2">
         <li>
           <Link href="/characters/list">

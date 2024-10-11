@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CharacterTable } from "src/components/Table";
+import { CharacterTable } from "@/components/CharacterTable";
 import Sidebar from "src/components/Sidebar";
 import { CharacterModal } from "src/components/CharacterModal"; 
 import { Button } from "@/components/ui/button";
@@ -16,7 +16,6 @@ interface Character {
 const CharacterList = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null); 
   const [filters, setFilters] = useState({ name: "", gender: "", type: "", species: "" }); 
 
   useEffect(() => {
@@ -56,7 +55,6 @@ const CharacterList = () => {
     const updatedCharacters = characters.filter(character => character.id !== id);
     setCharacters(updatedCharacters);
 
-    // Update local storage if necessary
     const localCharacters: Character[] = JSON.parse(localStorage.getItem("localCharacters") || "[]");
     const updatedLocalCharacters = localCharacters.filter((character: Character) => character.id !== id);
     localStorage.setItem("localCharacters", JSON.stringify(updatedLocalCharacters));
@@ -86,7 +84,6 @@ const CharacterList = () => {
       <Sidebar />
       <div className="flex-1 p-6 bg-gray-800">
         <h1 className="text-2xl font-bold mb-4 text-white">Character List</h1>
-        
         <div className="mb-4">
           <input
             type="text"
@@ -94,15 +91,26 @@ const CharacterList = () => {
             placeholder="Filter by name"
             value={filters.name}
             onChange={handleFilterChange}
-            className="p-2 rounded bg-gray-700 text-gray-300"
+            className="p-2 rounded bg-gray-700 text-gray-300 m-1"
           />
+          
+
+          <input
+            type="text"
+            name="species"
+            placeholder="Filter by species"
+            value={filters.species}
+            onChange={handleFilterChange}
+            className="p-2 rounded bg-gray-700 text-gray-300 m-1"
+          />
+
           <input
             type="text"
             name="gender"
             placeholder="Filter by gender"
             value={filters.gender}
             onChange={handleFilterChange}
-            className="p-2 rounded bg-gray-700 text-gray-300 ml-2"
+            className="p-2 rounded bg-gray-700 text-gray-300 m-1"
           />
           <input
             type="text"
@@ -110,19 +118,12 @@ const CharacterList = () => {
             placeholder="Filter by type"
             value={filters.type}
             onChange={handleFilterChange}
-            className="p-2 rounded bg-gray-700 text-gray-300 ml-2"
+            className="p-2 rounded bg-gray-700 text-gray-300 m-1"
           />
-          <input
-            type="text"
-            name="species"
-            placeholder="Filter by species"
-            value={filters.species}
-            onChange={handleFilterChange}
-            className="p-2 rounded bg-gray-700 text-gray-300 ml-2"
-          />
+          
         </div>
 
-        <Button onClick={() => setIsModalOpen(true)} className="mb-4">Add Character</Button> 
+        <Button onClick={() => setIsModalOpen(true)} className="mb-4 bg-customGray-900 hover:bg-white hover:text-black">Add Character</Button> 
         <CharacterTable data={filteredCharacters} onEdit={editCharacter} onDelete={deleteCharacter} />
       </div>
       <CharacterModal

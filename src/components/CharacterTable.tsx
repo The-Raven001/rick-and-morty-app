@@ -4,6 +4,8 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { CharacterModal } from "@/components/CharacterModal";
 import { Button } from "@/components/ui/button";
 import 'tailwindcss/tailwind.css';
+import { useToast } from "hooks/use-toast";
+import { Toaster } from "src/components/ui/toaster";
 
 interface Character {
   id: number;
@@ -24,14 +26,21 @@ export function CharacterTable({ data, onEdit, onDelete }: TableProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
 
+  const {toast} = useToast();
+
   const handleEditClick = (character: Character) => {
     setSelectedCharacter(character);
     setIsModalOpen(true);
   };
 
-  const handleDeleteClick = (id: number) => {
+  const handleDeleteClick = (id: number, name: string) => {
     if (window.confirm("Are you sure you want to delete this character?")) {
       onDelete(id);
+      toast({
+        title: "Character deleted successfully!",
+        description: `The character "${name}" has been deleted from your list.`,
+  
+      });
     }
   };
 
@@ -42,8 +51,8 @@ export function CharacterTable({ data, onEdit, onDelete }: TableProps) {
   };
 
   return (
-    <>
-      <Table className="min-w-full bg-gray-800 font-semibold text-gray-300 rounded-xl">
+    <div>
+      <Table className="h-screen bg-gray-800 font-semibold text-gray-300 rounded-xl">
         <TableHeader className="bg-gray-900">
           <TableRow>
             <TableHead className="py-3 px-4">Name</TableHead>
@@ -61,15 +70,15 @@ export function CharacterTable({ data, onEdit, onDelete }: TableProps) {
               <TableCell className="py-2 px-4 text-gray-300">{character.status}</TableCell>
               <TableCell className="py-2 px-4 text-gray-300">{character.species}</TableCell>
               <TableCell className="py-2 px-4 text-gray-300">{character.gender}</TableCell>
-              <TableCell className="py-2 px-1 text-gray-300">{character.type}</TableCell>
+              <TableCell className="py-2 px-1 text-gray-300">{character.type? character.type : "N/A"}</TableCell>
               <TableCell className="py-2 px-4 text-gray-300">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="outline">Actions</Button>
+                    <Button className=" bg-customGray-900 hover:bg-white hover:text-black">Actions</Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-gray-800 text-gray-300">
+                  <DropdownMenuContent className="bg-customGray-900 text-gray-300">
                     <DropdownMenuItem onClick={() => handleEditClick(character)}>Edit</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => handleDeleteClick(character.id)}>Delete</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => handleDeleteClick(character.id, character.name)}>Delete</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </TableCell>
@@ -84,6 +93,6 @@ export function CharacterTable({ data, onEdit, onDelete }: TableProps) {
         onSave={handleSave}
         initialData={selectedCharacter || undefined}
       />
-    </>
+    </div>
   );
 }
